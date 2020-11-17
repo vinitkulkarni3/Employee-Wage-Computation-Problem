@@ -6,6 +6,7 @@ echo "***WELCOME TO EMPLOYEE WAGE CALCULATION PROGRAM***"
 isPresent=1
 isFullTime=1
 isPartTime=2
+max_hrs_in_month=10
 empRatePerHr=20
 numWorkingDays=20
 totalSalary=0
@@ -84,3 +85,30 @@ totalSalary=$(($totalSalary+$salary))
 echo "SALARY FOR MONTH "$salary
 echo "TOTAL SALARY "$totalSalary
 done
+
+
+#6.Calculate Wages till a condition of total working hours or days is reached for a month
+totalEmpHr=0
+totalWorkingDays=0
+while [[ $totalEmpHr -lt $max_hrs_in_month &&
+	 $totalWorkingDays -lt $numWorkingDays ]]
+do
+	((totalWorkingDays++))
+	empCheck1=$(($RANDOM%3))
+	case $empCheck1 in
+	$isFullTime)
+                        empHrs=8;
+                        ;;
+        $isPartTime)
+                        empHrs=4;
+                        ;;
+        *)
+                        empHrs=0
+                        ;;
+esac
+totalEmpHr=$(($totalEmpHr+$empHrs))
+done
+totalSalary=$(($totalEmpHr+$empRatePerHr))
+
+echo "--TOTAL EMPLOYEE HOURS "$totalEmpHr
+echo "--TOTAL SALARY "$totalSalary
