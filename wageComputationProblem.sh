@@ -112,3 +112,37 @@ totalSalary=$(($totalEmpHr+$empRatePerHr))
 
 echo "--TOTAL EMPLOYEE HOURS "$totalEmpHr
 echo "--TOTAL SALARY "$totalSalary
+
+
+
+#7.Refactor the code to write a function to get work hours
+function getworkhours()
+{
+	empCheck1=$1
+	totalEmpHr=0
+	totalWorkingDays=0
+while [[ $totalEmpHr -lt $max_hrs_in_month &&
+         $totalWorkingDays -lt $numWorkingDays ]]
+do
+        ((totalWorkingDays++))
+        empCheck1=$(($RANDOM%3))
+        case $empCheck1 in
+        $isFullTime)
+                        empHrs=8;
+                        ;;
+        $isPartTime)
+                        empHrs=4;
+                        ;;
+        *)
+                        empHrs=0
+                        ;;
+esac
+totalEmpHr=$(($totalEmpHr+$empHrs))
+done
+totalSalary=$(($totalEmpHr+$empRatePerHr))
+
+echo "--TOTAL EMPLOYEE HOURS FROM FUNCTION "$totalEmpHr
+}
+empCheck1=$(($RANDOM%3))
+getworkhours $empCheck1
+
