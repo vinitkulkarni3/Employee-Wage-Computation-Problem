@@ -6,6 +6,9 @@ echo "***WELCOME TO EMPLOYEE WAGE CALCULATION PROGRAM***"
 isPresent=1
 isFullTime=1
 isPartTime=2
+empRatePerHr=20
+numWorkingDays=20
+totalSalary=0
 randomCheck=$(($RANDOM%2));
 empCheck=$(($RANDOM%2));
 
@@ -59,3 +62,25 @@ case $empCheck in
 esac
 salary=$(($empHrs*$empRatePerHr))
 echo "SALARY CALCULATION USING SWITCH CASE "$salary
+
+
+#5.Calculating wages for month
+for (( day=1; day<=$numWorkingDays; day++ ))
+do
+empCheck1=$((RANDOM%3));
+case $empCheck1 in
+        $isFullTime)
+                        empHrs=8;
+                        ;;
+        $isPartTime)
+                        empHrs=4;
+                        ;;
+        *)
+                        empHrs=0
+                        ;;
+esac
+salary=$(($empHrs*$empRatePerHr))
+totalSalary=$(($totalSalary+$salary))
+echo "SALARY FOR MONTH "$salary
+echo "TOTAL SALARY "$totalSalary
+done
