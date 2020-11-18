@@ -3,6 +3,8 @@
 
 echo "***WELCOME TO EMPLOYEE WAGE CALCULATION PROGRAM***"
 
+isPartTime=1
+isFullTime=2
 isPresent=1
 isFullTime=1
 isPartTime=2
@@ -146,3 +148,38 @@ echo "--TOTAL EMPLOYEE HOURS FROM FUNCTION "$totalEmpHr
 empCheck1=$(($RANDOM%3))
 getworkhours $empCheck1
 
+
+
+#8.Store the daily wage along with the total wage
+totalEmpHrs=0
+totalWorkingDays=0
+max_hrs_in_month1=4
+
+function getWorkHrs()
+{
+	empCheck2=$1
+	case $empCheck2 in
+        $isFullTime)
+        		empHrs=8;
+        		;;
+        $isPartTime)
+        		empHrs=4;
+        		;;
+        *)
+        		empHrs=0
+        		;;
+	esac
+	echo $empHrs
+}
+while [[ $totalEmpHrs -lt $max_hrs_in_month1 &&
+         $totalWorkingDays -lt $numWorkingDays ]]
+do
+	((totalWorkingDays++))
+	empCheck2=$(($RANDOM%3))
+	empHrs="$( getWorkHrs $empCheck2 )"
+	totalEmpHrs=$(($totalEmpHrs+$empHrs))
+	ans=$(($empHrs*$empRatePerHr))
+	arrDailyWage[$totalWorkingDays]=$ans
+done
+totalSalary=$(($totalEmpHrs+$empRatePerHr))
+echo "Daily Wage is-> "${arrDailyWage[@]}
